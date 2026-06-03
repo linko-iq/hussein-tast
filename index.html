@@ -272,6 +272,23 @@ h1{font-size:clamp(40px,8vw,88px);line-height:1.03;font-weight:900;letter-spacin
   }
 }
 
+
+.delete-order{
+  width:100%;
+  border:1px solid rgba(226,20,20,.45)!important;
+  background:rgba(226,20,20,.12)!important;
+  color:#ffd7d7!important;
+  border-radius:12px;
+  padding:9px;
+  font-weight:900;
+}
+.order-actions{
+  grid-template-columns:1fr 1fr 1fr!important;
+}
+@media(max-width:640px){
+  .order-actions{grid-template-columns:1fr!important}
+}
+
 </style>
 </head>
 <body>
@@ -282,7 +299,12 @@ h1{font-size:clamp(40px,8vw,88px);line-height:1.03;font-weight:900;letter-spacin
 <section id="customer" class="screen view hide"><div id="firebaseWarning"></div><div class="section-head"><div><h2>المنيو</h2><p>ابحث، اختار، وأرسل طلبك خلال أقل من دقيقة.</p></div><button class="secondary" onclick="showView('home')">رجوع</button></div><div class="search-box"><input id="searchInput" placeholder="ابحث عن منتج..." oninput="renderProducts()"></div><div id="categories" class="tabs"></div><div id="products" class="products"></div></section>
 <section id="successView" class="screen view hide"><div class="success-page"><div class="success-icon">✅</div><h2>تم استلام طلبك</h2><p class="demo-note">احتفظ برقم الطلب وتابع حالته هنا مباشرة.</p><div class="order-number" id="successNumber">#1001</div><div class="status-big" id="liveCustomerStatus">🟡 طلب جديد</div><div class="hero-actions"><button class="primary" onclick="showView('customer')">طلب جديد</button><button class="secondary" onclick="goHome()">الرئيسية</button></div></div></section>
 <section id="cashier" class="screen view hide"><div class="section-head"><div><h2>لوحة الكاشير</h2><p>الطلبات تظهر مباشرة بدون تحديث الصفحة.</p><div class="new-counter">🔴 طلبات جديدة (<span id="newCounterInline">0</span>)</div></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="cards"><div class="stat-card hot"><span>طلبات جديدة</span><b id="cashNew">0</b></div><div class="stat-card"><span>قيد التحضير</span><b id="cashPrep">0</b></div><div class="stat-card"><span>جاهزة</span><b id="cashReady">0</b></div><div class="stat-card"><span>مسلمة</span><b id="cashDone">0</b></div></div><div id="cashierBoard" class="kanban"></div></section>
-<section id="admin" class="screen view hide"><div class="section-head"><div><h2>لوحة الإدارة</h2><p>مبيعات وإحصائيات وإدارة خاصة فقط بالإدارة.</p></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="admin-layout"><aside class="side"><button class="active" onclick="adminTab('stats',this)">الإحصائيات</button><button onclick="adminTab('ordersAdmin',this)">الطلبات</button></aside><div><div id="stats" class="admin-tab"><div class="cards"><div class="stat-card"><span>مبيعات اليوم</span><b id="stDay">0</b></div><div class="stat-card"><span>مبيعات الأسبوع</span><b id="stWeek">0</b></div><div class="stat-card"><span>مبيعات الشهر</span><b id="stMonth">0</b></div><div class="stat-card"><span>عدد الطلبات</span><b id="stOrders">0</b></div><div class="stat-card"><span>متوسط الطلب</span><b id="stAvg">0</b></div><div class="stat-card"><span>الأكثر طلباً</span><b id="stTop">-</b></div></div><div class="table" id="statusTable"></div></div><div id="productsAdmin" class="admin-tab hide"><div class="table" id="productsTable"></div></div><div id="branches" class="admin-tab hide"><div class="table"><div class="row head"><div>الفرع</div><div>الحالة</div><div>ملاحظة</div></div><div class="row"><div>فرع الكرادة</div><div><span class="pill">نشط</span></div><div>جاهز للطلبات</div></div><div class="row"><div>فرع المنصور</div><div><span class="pill">نشط</span></div><div>قابل للربط التجاري</div></div></div></div><div id="ordersAdmin" class="admin-tab hide"><div id="adminOrders" class="kanban"></div></div></div></div></section>
+<section id="admin" class="screen view hide"><div class="section-head"><div><h2>لوحة الإدارة</h2><p>مبيعات وإحصائيات وإدارة خاصة فقط بالإدارة.</p></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="admin-layout"><aside class="side"><button class="active" onclick="adminTab('stats',this)">الإحصائيات</button><button onclick="adminTab('ordersAdmin',this)">الطلبات</button></aside><div><div id="stats" class="admin-tab">
+<div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px">
+<button class="delete-order" onclick="deleteTodayOrders()">🗑️ حذف طلبات اليوم</button>
+<button class="delete-order" onclick="deleteAllOrders()">🗑️🗑️ حذف جميع الطلبات</button>
+</div>
+<div class="cards"><div class="stat-card"><span>مبيعات اليوم</span><b id="stDay">0</b></div><div class="stat-card"><span>مبيعات الأسبوع</span><b id="stWeek">0</b></div><div class="stat-card"><span>مبيعات الشهر</span><b id="stMonth">0</b></div><div class="stat-card"><span>عدد الطلبات</span><b id="stOrders">0</b></div><div class="stat-card"><span>متوسط الطلب</span><b id="stAvg">0</b></div><div class="stat-card"><span>الأكثر طلباً</span><b id="stTop">-</b></div></div><div class="table" id="statusTable"></div></div><div id="productsAdmin" class="admin-tab hide"><div class="table" id="productsTable"></div></div><div id="branches" class="admin-tab hide"><div class="table"><div class="row head"><div>الفرع</div><div>الحالة</div><div>ملاحظة</div></div><div class="row"><div>فرع الكرادة</div><div><span class="pill">نشط</span></div><div>جاهز للطلبات</div></div><div class="row"><div>فرع المنصور</div><div><span class="pill">نشط</span></div><div>قابل للربط التجاري</div></div></div></div><div id="ordersAdmin" class="admin-tab hide"><div id="adminOrders" class="kanban"></div></div></div></div></section>
 </main>
 <button id="cartFloat" class="cart-float hide" onclick="openCart()"><span><span class="cart-title">🛒 السلة (<b id="cartCount">0</b>) <span class="arrow">↙</span></span><small>اضغط لتأكيد الطلب</small></span><strong id="cartTotalFloat">0 IQD</strong></button>
 <div id="cartDrawer" class="drawer"><div class="backdrop" onclick="closeCart()"></div><div class="drawer-panel"><button class="x" onclick="closeCart()">✕</button><h2>إتمام الطلب</h2><div id="cartItems" class="cart-list"></div><div class="price-row" style="margin-top:12px;font-size:20px"><b>المجموع</b><b id="cartTotal">0 IQD</b></div><div class="form"><div class="field"><label>نوع الطلب</label><div class="order-type"><button id="typeHall" class="active" onclick="setOrderType('صالة')">صالة</button><button id="typeTake" onclick="setOrderType('سفري')">سفري</button><button id="typePickup" onclick="setOrderType('استلام من الفرع')">استلام</button></div></div><div class="field"><label>الاسم</label><input id="customerName" placeholder="اكتب اسمك"></div><div id="dynamicFields"></div><div class="field"><label>ملاحظات</label><textarea id="customerNote" placeholder="مثلاً: بدون بصل / زيادة صوص"></textarea></div><button class="primary" onclick="submitOrder()">تأكيد الطلب</button><div id="orderError"></div></div></div></div>
@@ -343,7 +365,14 @@ function nextOrderNumber(){const max=orders.reduce((m,o)=>Math.max(m,Number(o.nu
 async function submitOrder(){orderError.innerHTML='';if(!isFirebaseReady){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">لازم ربط Firebase قبل استقبال طلبات حقيقية.</div>';return}const name=customerName.value.trim();if(!cart.length){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">أضف منتج واحد على الأقل.</div>';return}if(!name){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">اكتب الاسم.</div>';return}let details={};if(orderType==='سفري'){const phone=getField('customerPhone'),address=getField('customerAddress');if(!phone||!address){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">اكتب رقم الهاتف والعنوان.</div>';return}details={phone,address}}else if(orderType==='صالة'){const hall=getField('hallNumber'),table=getField('tableNumber');if(!hall||!table){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">اكتب رقم الصالة ورقم الطاولة.</div>';return}details={hall,table}}else{const phone=getField('customerPhone');if(!phone){orderError.innerHTML='<div class="empty" style="color:#ffd5d5;border-color:rgba(226,20,20,.45)">اكتب رقم الهاتف.</div>';return}details={phone}}const ref=db.ref('orders').push();const order={key:ref.key,number:nextOrderNumber(),name,type:orderType,details,note:customerNote.value.trim(),items:cart.map(i=>({id:i.id,name:i.name,img:i.img,price:i.price,qty:i.qty})),total:cart.reduce((s,i)=>s+i.price*i.qty,0),status:'طلب جديد',createdAt:Date.now()};await ref.set(order);trackingId=ref.key;successNumber.textContent='#'+order.number;liveCustomerStatus.textContent=statusEmoji[order.status];listenCustomerOrder(ref.key);cart=[];customerName.value='';customerNote.value='';closeCart();renderCart();showView('successView')}
 function listenOrders(){db.ref('orders').orderByChild('createdAt').on('value',snap=>{const data=snap.val()||{};const newOrders=Object.values(data).sort((a,b)=>b.createdAt-a.createdAt);newOrders.forEach(o=>{if(!firstLoad&&!knownOrderIds.has(o.key)&&o.status==='طلب جديد')notifyNewOrder()});orders=newOrders;knownOrderIds=new Set(orders.map(o=>o.key));firstLoad=false;renderAll()})}
 function listenCustomerOrder(key){if(!isFirebaseReady)return;db.ref('orders/'+key).on('value',snap=>{const o=snap.val();if(o){successNumber.textContent='#'+o.number;liveCustomerStatus.textContent=statusEmoji[o.status]||o.status}})}
-function updateStatus(key,status){if(!isFirebaseReady)return;db.ref('orders/'+key).update({status,updatedAt:Date.now()})}
+function updateStatus(key,status){if(!isFirebaseReady)return;db.ref('orders/'+key).update({status,updatedAt:Date.now()});if(status==='تم التسليم'){showToast('✅ تم تسليم الطلب')}}
+function deleteOrder(key,number){
+  if(!isFirebaseReady)return;
+  const ok = confirm('تأكيد حذف الطلب #' + number + '؟');
+  if(!ok)return;
+  db.ref('orders/'+key).remove();
+  showToast('🗑️ تم حذف الطلب');
+}
 function notifyNewOrder(){showToast('🔔 طلب جديد وصل');try{const ctx=new (window.AudioContext||window.webkitAudioContext)();[900,1150,900,1300].forEach((f,i)=>{const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type='square';osc.frequency.value=f;gain.gain.value=.06;osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+i*.13);osc.stop(ctx.currentTime+i*.13+.1)});setTimeout(()=>ctx.close(),900)}catch(e){}}
 function showToast(txt){toast.textContent=txt;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3000)}
 function openStaffModal(){staffModal.classList.add('show');loginBox.classList.add('hide');passInput.value='';loginError.textContent=''}function closeStaffModal(){staffModal.classList.remove('show')}
@@ -353,10 +382,13 @@ function logoutStaff(){showView('home')}
 function detailsText(o){if(o.type==='صالة')return `الصالة: ${o.details?.hall||'-'} — الطاولة: ${o.details?.table||'-'}`;if(o.type==='سفري')return `الهاتف: ${o.details?.phone||'-'} — العنوان: ${o.details?.address||'-'}`;return `الهاتف: ${o.details?.phone||'-'}`}
 function orderHtml(o){
   const time = new Date(o.createdAt).toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'});
-  return `<div class="order-card"><div class="top"><b>#${o.number}</b><span class="pill">${o.type}</span></div><p class="demo-note"><b>${o.name}</b><br>${detailsText(o)}<br>${time}</p><ul>${o.items.map(i=>`<li>${i.name} × ${i.qty}</li>`).join('')}</ul><b>${money(o.total)}</b>${o.note?`<p class="demo-note">ملاحظة: ${o.note}</p>`:''}<div class="order-actions"><select onchange="updateStatus('${o.key}',this.value)">${statuses.map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="print" onclick="printOrder('${o.key}')">🖨️ طباعة</button></div></div>`
+  return `<div class="order-card"><div class="top"><b>#${o.number}</b><span class="pill">${o.type}</span></div><p class="demo-note"><b>${o.name}</b><br>${detailsText(o)}<br>${time}</p><ul>${o.items.map(i=>`<li>${i.name} × ${i.qty}</li>`).join('')}</ul><b>${money(o.total)}</b>${o.note?`<p class="demo-note">ملاحظة: ${o.note}</p>`:''}<div class="order-actions"><select onchange="updateStatus('${o.key}',this.value)">${statuses.map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="print" onclick="printOrder('${o.key}')">🖨️ طباعة</button><button class="delete-order" onclick="deleteOrder('${o.key}','${o.number}')">حذف</button></div></div>`
 }
 function renderBoard(el){
-  document.getElementById(el).innerHTML=statuses.map(s=>{
+  const visibleStatuses = el === 'cashierBoard'
+    ? statuses.filter(s => s !== 'تم التسليم')
+    : statuses;
+  document.getElementById(el).innerHTML=visibleStatuses.map(s=>{
     const list=orders.filter(o=>o.status===s);
     return `<section class="status-section"><h3>${s}<span class="pill">${list.length}</span></h3><div class="status-orders">${list.map(orderHtml).join('')||'<div class="empty">لا توجد طلبات</div>'}</div></section>`
   }).join('')
@@ -365,6 +397,21 @@ function printOrder(key){const o=orders.find(x=>x.key===key);if(!o)return;printA
 function renderStats(){const count=s=>orders.filter(o=>o.status===s).length;cashNew.textContent=count('طلب جديد');newCounterInline.textContent=count('طلب جديد');cashPrep.textContent=count('قيد التحضير');cashReady.textContent=count('جاهز');cashDone.textContent=count('تم التسليم');const now=new Date(),dayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(),weekStart=dayStart-6*86400000,monthStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();const salesSince=t=>orders.filter(o=>o.createdAt>=t).reduce((s,o)=>s+o.total,0);stDay.textContent=money(salesSince(dayStart));stWeek.textContent=money(salesSince(weekStart));stMonth.textContent=money(salesSince(monthStart));stOrders.textContent=orders.length;const sales=orders.reduce((s,o)=>s+o.total,0);stAvg.textContent=money(orders.length?Math.round(sales/orders.length):0);const qty={};orders.forEach(o=>o.items.forEach(i=>qty[i.name]=(qty[i.name]||0)+i.qty));stTop.textContent=Object.entries(qty).sort((a,b)=>b[1]-a[1])[0]?.[0]||'-';statusTable.innerHTML='<div class="row head"><div>الحالة</div><div>العدد</div><div>النسبة</div></div>'+statuses.map(s=>`<div class="row"><div>${s}</div><div>${count(s)}</div><div>${orders.length?Math.round(count(s)/orders.length*100):0}%</div></div>`).join('');productsTable.innerHTML='<div class="row head"><div>المنتج</div><div>السعر</div><div>التصنيف</div></div>'+products.map(p=>`<div class="row"><div>${p.name}</div><div>${money(p.price)}</div><div>${p.cat}</div></div>`).join('')}
 function adminTab(id,btn){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
 function renderAll(){renderCats();renderProducts();renderCart();renderDynamicFields();renderBoard('cashierBoard');renderStats();renderBoard('adminOrders')}
+
+function deleteTodayOrders(){
+ if(!isFirebaseReady)return;
+ if(!confirm('هل أنت متأكد من حذف جميع طلبات اليوم؟')) return;
+ const now=new Date(), start=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime();
+ orders.filter(o=>o.createdAt>=start).forEach(o=>db.ref('orders/'+o.key).remove());
+ showToast('🗑️ تم حذف طلبات اليوم');
+}
+function deleteAllOrders(){
+ if(!isFirebaseReady)return;
+ if(!confirm('تحذير! سيتم حذف جميع الطلبات نهائياً. هل تريد المتابعة؟')) return;
+ db.ref('orders').remove();
+ showToast('🗑️ تم حذف جميع الطلبات');
+}
+
 initFirebase();renderAll();
 </script>
 </body>
