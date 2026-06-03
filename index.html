@@ -99,6 +99,179 @@ h1{font-size:clamp(40px,8vw,88px);line-height:1.03;font-weight:900;letter-spacin
 @media(max-width:640px){.brand span{font-size:14px}.brand small{font-size:10px}.logo{width:38px;height:38px}.mini-btn{padding:8px 10px;font-size:12px}.hero{padding-top:88px}.products{grid-template-columns:1fr}.section-head{display:block}.section-head .secondary{margin-top:12px}.order-type{grid-template-columns:1fr}.staff-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}.kanban{grid-template-columns:1fr}.row{grid-template-columns:1fr}.row.head{display:none}.photo{height:190px}.drawer-panel{padding-bottom:30px}.side{grid-template-columns:1fr}.cart-list{grid-template-columns:1fr}.cart-float{bottom:10px;border-radius:20px}.screen{padding-left:12px;padding-right:12px}.order-actions{grid-template-columns:1fr}.cart-item{grid-template-columns:54px 1fr}.qty{grid-column:2}}
 @media print{body>*:not(#printArea){display:none!important}#printArea{display:block!important;color:#000;background:#fff;padding:20px;font-family:Arial}}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+
+/* FINAL UX SIMPLIFICATION */
+.drawer-panel{
+  display:flex;
+  flex-direction:column;
+  height:min(92svh,860px);
+  overflow:hidden;
+}
+#cartItems{
+  overflow:auto;
+  max-height:30svh;
+  padding-inline-end:2px;
+}
+.cart-list{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:8px;
+}
+.cart-item{
+  grid-template-columns:48px 1fr auto;
+  padding:8px;
+  border-radius:16px;
+}
+.thumb{width:48px;height:48px;border-radius:12px}
+.qty button{width:27px;height:27px}
+.drawer-panel .form{
+  overflow:auto;
+  padding-bottom:6px;
+  gap:8px;
+}
+.drawer-panel .price-row{
+  position:sticky;
+  top:0;
+  z-index:3;
+  background:linear-gradient(180deg,#0b0b0b,#0b0b0bcc);
+  padding:10px 0;
+}
+.drawer-panel .form .primary{
+  position:sticky;
+  bottom:0;
+  z-index:4;
+  width:100%;
+  padding:17px 20px;
+  box-shadow:0 -12px 30px rgba(0,0,0,.45),0 12px 35px rgba(212,175,55,.22);
+}
+.field input,.field textarea,.field select{min-height:44px;padding:11px 12px}
+.field textarea{min-height:62px}
+.order-type{grid-template-columns:repeat(3,1fr)}
+.order-type button{padding:10px}
+
+.kanban{
+  display:block;
+}
+.status-section{
+  border:1px solid rgba(212,175,55,.18);
+  background:rgba(255,255,255,.04);
+  border-radius:24px;
+  padding:12px;
+  margin-bottom:14px;
+}
+.status-section h3{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:10px;
+  font-size:18px;
+}
+.status-orders{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(245px,1fr));
+  gap:10px;
+}
+.order-card{
+  padding:10px;
+  border-radius:16px;
+  margin-bottom:0;
+}
+.order-card .top b{font-size:17px}
+.order-card ul{
+  list-style:none;
+  margin:8px 0;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  line-height:1.4;
+}
+.order-card li{
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.045);
+  border-radius:999px;
+  padding:5px 8px;
+  font-size:12px;
+}
+.order-card .demo-note{
+  line-height:1.55;
+}
+.order-actions{
+  grid-template-columns:1.2fr .8fr;
+  gap:7px;
+}
+.order-card select,.order-card button.print{
+  padding:9px;
+  font-size:14px;
+}
+.toast{
+  top:86px;
+  width:min(92vw,520px);
+  padding:18px 22px;
+  font-size:24px;
+  border-radius:24px;
+}
+.admin-layout{
+  grid-template-columns:1fr;
+}
+.side{
+  position:static;
+  display:flex;
+  gap:8px;
+  overflow-x:auto;
+  padding:10px;
+  margin-bottom:12px;
+}
+.side button{
+  width:auto;
+  min-width:140px;
+  text-align:center;
+  margin-bottom:0;
+}
+#admin .cards{
+  grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
+  gap:10px;
+}
+#admin .stat-card{
+  padding:13px;
+  border-radius:18px;
+}
+#admin .stat-card span{font-size:13px}
+#admin .stat-card b{font-size:20px}
+@media(max-width:640px){
+  .drawer-panel{
+    height:92svh;
+    padding:14px;
+  }
+  #cartItems{max-height:25svh}
+  .cart-list{grid-template-columns:1fr 1fr;gap:7px}
+  .cart-item{
+    grid-template-columns:42px 1fr;
+    gap:7px;
+    padding:7px;
+  }
+  .thumb{width:42px;height:42px}
+  .cart-item b{font-size:12px}
+  .cart-item .demo-note{font-size:10px}
+  .qty{
+    grid-column:1/-1;
+    justify-content:space-between;
+  }
+  .qty button{width:29px;height:29px}
+  .order-type{grid-template-columns:repeat(3,1fr)}
+  .order-type button{font-size:13px;padding:10px 4px}
+  .status-orders{
+    grid-template-columns:1fr;
+  }
+  .order-card{
+    padding:9px;
+  }
+  .toast{
+    top:auto;
+    bottom:92px;
+    font-size:21px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -109,7 +282,7 @@ h1{font-size:clamp(40px,8vw,88px);line-height:1.03;font-weight:900;letter-spacin
 <section id="customer" class="screen view hide"><div id="firebaseWarning"></div><div class="section-head"><div><h2>المنيو</h2><p>ابحث، اختار، وأرسل طلبك خلال أقل من دقيقة.</p></div><button class="secondary" onclick="showView('home')">رجوع</button></div><div class="search-box"><input id="searchInput" placeholder="ابحث عن منتج..." oninput="renderProducts()"></div><div id="categories" class="tabs"></div><div id="products" class="products"></div></section>
 <section id="successView" class="screen view hide"><div class="success-page"><div class="success-icon">✅</div><h2>تم استلام طلبك</h2><p class="demo-note">احتفظ برقم الطلب وتابع حالته هنا مباشرة.</p><div class="order-number" id="successNumber">#1001</div><div class="status-big" id="liveCustomerStatus">🟡 طلب جديد</div><div class="hero-actions"><button class="primary" onclick="showView('customer')">طلب جديد</button><button class="secondary" onclick="goHome()">الرئيسية</button></div></div></section>
 <section id="cashier" class="screen view hide"><div class="section-head"><div><h2>لوحة الكاشير</h2><p>الطلبات تظهر مباشرة بدون تحديث الصفحة.</p><div class="new-counter">🔴 طلبات جديدة (<span id="newCounterInline">0</span>)</div></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="cards"><div class="stat-card hot"><span>طلبات جديدة</span><b id="cashNew">0</b></div><div class="stat-card"><span>قيد التحضير</span><b id="cashPrep">0</b></div><div class="stat-card"><span>جاهزة</span><b id="cashReady">0</b></div><div class="stat-card"><span>مسلمة</span><b id="cashDone">0</b></div></div><div id="cashierBoard" class="kanban"></div></section>
-<section id="admin" class="screen view hide"><div class="section-head"><div><h2>لوحة الإدارة</h2><p>مبيعات وإحصائيات وإدارة خاصة فقط بالإدارة.</p></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="admin-layout"><aside class="side"><button class="active" onclick="adminTab('stats',this)">الإحصائيات</button><button onclick="adminTab('productsAdmin',this)">المنتجات</button><button onclick="adminTab('branches',this)">الفروع</button><button onclick="adminTab('ordersAdmin',this)">الطلبات</button></aside><div><div id="stats" class="admin-tab"><div class="cards"><div class="stat-card"><span>مبيعات اليوم</span><b id="stDay">0</b></div><div class="stat-card"><span>مبيعات الأسبوع</span><b id="stWeek">0</b></div><div class="stat-card"><span>مبيعات الشهر</span><b id="stMonth">0</b></div><div class="stat-card"><span>عدد الطلبات</span><b id="stOrders">0</b></div><div class="stat-card"><span>متوسط الطلب</span><b id="stAvg">0</b></div><div class="stat-card"><span>الأكثر طلباً</span><b id="stTop">-</b></div></div><div class="table" id="statusTable"></div></div><div id="productsAdmin" class="admin-tab hide"><div class="table" id="productsTable"></div></div><div id="branches" class="admin-tab hide"><div class="table"><div class="row head"><div>الفرع</div><div>الحالة</div><div>ملاحظة</div></div><div class="row"><div>فرع الكرادة</div><div><span class="pill">نشط</span></div><div>جاهز للطلبات</div></div><div class="row"><div>فرع المنصور</div><div><span class="pill">نشط</span></div><div>قابل للربط التجاري</div></div></div></div><div id="ordersAdmin" class="admin-tab hide"><div id="adminOrders" class="kanban"></div></div></div></div></section>
+<section id="admin" class="screen view hide"><div class="section-head"><div><h2>لوحة الإدارة</h2><p>مبيعات وإحصائيات وإدارة خاصة فقط بالإدارة.</p></div><button class="secondary" onclick="logoutStaff()">خروج</button></div><div class="admin-layout"><aside class="side"><button class="active" onclick="adminTab('stats',this)">الإحصائيات</button><button onclick="adminTab('ordersAdmin',this)">الطلبات</button></aside><div><div id="stats" class="admin-tab"><div class="cards"><div class="stat-card"><span>مبيعات اليوم</span><b id="stDay">0</b></div><div class="stat-card"><span>مبيعات الأسبوع</span><b id="stWeek">0</b></div><div class="stat-card"><span>مبيعات الشهر</span><b id="stMonth">0</b></div><div class="stat-card"><span>عدد الطلبات</span><b id="stOrders">0</b></div><div class="stat-card"><span>متوسط الطلب</span><b id="stAvg">0</b></div><div class="stat-card"><span>الأكثر طلباً</span><b id="stTop">-</b></div></div><div class="table" id="statusTable"></div></div><div id="productsAdmin" class="admin-tab hide"><div class="table" id="productsTable"></div></div><div id="branches" class="admin-tab hide"><div class="table"><div class="row head"><div>الفرع</div><div>الحالة</div><div>ملاحظة</div></div><div class="row"><div>فرع الكرادة</div><div><span class="pill">نشط</span></div><div>جاهز للطلبات</div></div><div class="row"><div>فرع المنصور</div><div><span class="pill">نشط</span></div><div>قابل للربط التجاري</div></div></div></div><div id="ordersAdmin" class="admin-tab hide"><div id="adminOrders" class="kanban"></div></div></div></div></section>
 </main>
 <button id="cartFloat" class="cart-float hide" onclick="openCart()"><span><span class="cart-title">🛒 السلة (<b id="cartCount">0</b>) <span class="arrow">↙</span></span><small>اضغط لتأكيد الطلب</small></span><strong id="cartTotalFloat">0 IQD</strong></button>
 <div id="cartDrawer" class="drawer"><div class="backdrop" onclick="closeCart()"></div><div class="drawer-panel"><button class="x" onclick="closeCart()">✕</button><h2>إتمام الطلب</h2><div id="cartItems" class="cart-list"></div><div class="price-row" style="margin-top:12px;font-size:20px"><b>المجموع</b><b id="cartTotal">0 IQD</b></div><div class="form"><div class="field"><label>نوع الطلب</label><div class="order-type"><button id="typeHall" class="active" onclick="setOrderType('صالة')">صالة</button><button id="typeTake" onclick="setOrderType('سفري')">سفري</button><button id="typePickup" onclick="setOrderType('استلام من الفرع')">استلام</button></div></div><div class="field"><label>الاسم</label><input id="customerName" placeholder="اكتب اسمك"></div><div id="dynamicFields"></div><div class="field"><label>ملاحظات</label><textarea id="customerNote" placeholder="مثلاً: بدون بصل / زيادة صوص"></textarea></div><button class="primary" onclick="submitOrder()">تأكيد الطلب</button><div id="orderError"></div></div></div></div>
@@ -171,15 +344,23 @@ async function submitOrder(){orderError.innerHTML='';if(!isFirebaseReady){orderE
 function listenOrders(){db.ref('orders').orderByChild('createdAt').on('value',snap=>{const data=snap.val()||{};const newOrders=Object.values(data).sort((a,b)=>b.createdAt-a.createdAt);newOrders.forEach(o=>{if(!firstLoad&&!knownOrderIds.has(o.key)&&o.status==='طلب جديد')notifyNewOrder()});orders=newOrders;knownOrderIds=new Set(orders.map(o=>o.key));firstLoad=false;renderAll()})}
 function listenCustomerOrder(key){if(!isFirebaseReady)return;db.ref('orders/'+key).on('value',snap=>{const o=snap.val();if(o){successNumber.textContent='#'+o.number;liveCustomerStatus.textContent=statusEmoji[o.status]||o.status}})}
 function updateStatus(key,status){if(!isFirebaseReady)return;db.ref('orders/'+key).update({status,updatedAt:Date.now()})}
-function notifyNewOrder(){showToast('🔔 طلب جديد');try{const ctx=new (window.AudioContext||window.webkitAudioContext)();[900,1150,900,1300].forEach((f,i)=>{const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type='square';osc.frequency.value=f;gain.gain.value=.06;osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+i*.13);osc.stop(ctx.currentTime+i*.13+.1)});setTimeout(()=>ctx.close(),900)}catch(e){}}
+function notifyNewOrder(){showToast('🔔 طلب جديد وصل');try{const ctx=new (window.AudioContext||window.webkitAudioContext)();[900,1150,900,1300].forEach((f,i)=>{const osc=ctx.createOscillator();const gain=ctx.createGain();osc.type='square';osc.frequency.value=f;gain.gain.value=.06;osc.connect(gain);gain.connect(ctx.destination);osc.start(ctx.currentTime+i*.13);osc.stop(ctx.currentTime+i*.13+.1)});setTimeout(()=>ctx.close(),900)}catch(e){}}
 function showToast(txt){toast.textContent=txt;toast.classList.add('show');setTimeout(()=>toast.classList.remove('show'),3000)}
 function openStaffModal(){staffModal.classList.add('show');loginBox.classList.add('hide');passInput.value='';loginError.textContent=''}function closeStaffModal(){staffModal.classList.remove('show')}
 function showLogin(t){loginTarget=t;loginBox.classList.remove('hide');loginLabel.textContent=t==='cashier'?'رمز دخول الكاشير':'كلمة مرور الإدارة'}
 function loginStaff(){const pass=passInput.value.trim();if(loginTarget==='cashier'&&pass===CASHIER_CODE){closeStaffModal();showView('cashier');return}if(loginTarget==='admin'&&pass===ADMIN_CODE){closeStaffModal();showView('admin');return}loginError.textContent='الرمز غير صحيح'}
 function logoutStaff(){showView('home')}
 function detailsText(o){if(o.type==='صالة')return `الصالة: ${o.details?.hall||'-'} — الطاولة: ${o.details?.table||'-'}`;if(o.type==='سفري')return `الهاتف: ${o.details?.phone||'-'} — العنوان: ${o.details?.address||'-'}`;return `الهاتف: ${o.details?.phone||'-'}`}
-function orderHtml(o){return `<div class="order-card"><div class="top"><b>#${o.number}</b><span class="pill">${o.type}</span></div><p class="demo-note"><b>${o.name}</b><br>${detailsText(o)}<br>${new Date(o.createdAt).toLocaleString('ar-IQ')}</p><ul>${o.items.map(i=>`<li>${i.name} × ${i.qty}</li>`).join('')}</ul><b>${money(o.total)}</b>${o.note?`<p class="demo-note">ملاحظة: ${o.note}</p>`:''}<div class="order-actions"><select onchange="updateStatus('${o.key}',this.value)">${statuses.map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="print" onclick="printOrder('${o.key}')">🖨️ طباعة</button></div></div>`}
-function renderBoard(el){document.getElementById(el).innerHTML=statuses.map(s=>{const list=orders.filter(o=>o.status===s);return `<div class="lane"><h3>${s}<span class="pill">${list.length}</span></h3>${list.map(orderHtml).join('')||'<div class="empty">لا توجد طلبات</div>'}</div>`}).join('')}
+function orderHtml(o){
+  const time = new Date(o.createdAt).toLocaleTimeString('ar-IQ',{hour:'2-digit',minute:'2-digit'});
+  return `<div class="order-card"><div class="top"><b>#${o.number}</b><span class="pill">${o.type}</span></div><p class="demo-note"><b>${o.name}</b><br>${detailsText(o)}<br>${time}</p><ul>${o.items.map(i=>`<li>${i.name} × ${i.qty}</li>`).join('')}</ul><b>${money(o.total)}</b>${o.note?`<p class="demo-note">ملاحظة: ${o.note}</p>`:''}<div class="order-actions"><select onchange="updateStatus('${o.key}',this.value)">${statuses.map(s=>`<option ${o.status===s?'selected':''}>${s}</option>`).join('')}</select><button class="print" onclick="printOrder('${o.key}')">🖨️ طباعة</button></div></div>`
+}
+function renderBoard(el){
+  document.getElementById(el).innerHTML=statuses.map(s=>{
+    const list=orders.filter(o=>o.status===s);
+    return `<section class="status-section"><h3>${s}<span class="pill">${list.length}</span></h3><div class="status-orders">${list.map(orderHtml).join('')||'<div class="empty">لا توجد طلبات</div>'}</div></section>`
+  }).join('')
+}
 function printOrder(key){const o=orders.find(x=>x.key===key);if(!o)return;printArea.innerHTML=`<h2>دار القهوة</h2><h3>طلب #${o.number}</h3><p>${o.type}</p><p>${o.name}</p><p>${detailsText(o)}</p><hr><ul>${o.items.map(i=>`<li>${i.name} × ${i.qty} — ${money(i.price*i.qty)}</li>`).join('')}</ul><h3>المجموع: ${money(o.total)}</h3>${o.note?`<p>ملاحظة: ${o.note}</p>`:''}`;printArea.classList.remove('hide');window.print();setTimeout(()=>printArea.classList.add('hide'),500)}
 function renderStats(){const count=s=>orders.filter(o=>o.status===s).length;cashNew.textContent=count('طلب جديد');newCounterInline.textContent=count('طلب جديد');cashPrep.textContent=count('قيد التحضير');cashReady.textContent=count('جاهز');cashDone.textContent=count('تم التسليم');const now=new Date(),dayStart=new Date(now.getFullYear(),now.getMonth(),now.getDate()).getTime(),weekStart=dayStart-6*86400000,monthStart=new Date(now.getFullYear(),now.getMonth(),1).getTime();const salesSince=t=>orders.filter(o=>o.createdAt>=t).reduce((s,o)=>s+o.total,0);stDay.textContent=money(salesSince(dayStart));stWeek.textContent=money(salesSince(weekStart));stMonth.textContent=money(salesSince(monthStart));stOrders.textContent=orders.length;const sales=orders.reduce((s,o)=>s+o.total,0);stAvg.textContent=money(orders.length?Math.round(sales/orders.length):0);const qty={};orders.forEach(o=>o.items.forEach(i=>qty[i.name]=(qty[i.name]||0)+i.qty));stTop.textContent=Object.entries(qty).sort((a,b)=>b[1]-a[1])[0]?.[0]||'-';statusTable.innerHTML='<div class="row head"><div>الحالة</div><div>العدد</div><div>النسبة</div></div>'+statuses.map(s=>`<div class="row"><div>${s}</div><div>${count(s)}</div><div>${orders.length?Math.round(count(s)/orders.length*100):0}%</div></div>`).join('');productsTable.innerHTML='<div class="row head"><div>المنتج</div><div>السعر</div><div>التصنيف</div></div>'+products.map(p=>`<div class="row"><div>${p.name}</div><div>${money(p.price)}</div><div>${p.cat}</div></div>`).join('')}
 function adminTab(id,btn){document.querySelectorAll('.admin-tab').forEach(t=>t.classList.add('hide'));document.getElementById(id).classList.remove('hide');document.querySelectorAll('.side button').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
